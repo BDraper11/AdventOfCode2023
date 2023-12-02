@@ -3,13 +3,19 @@ import re
 
 def GetAlphaNums(line, NumDict,NumNames,NumDictAlt):
     temp = [re.search(i,line) for i in NumDictAlt]
+    while any([e is not None for e in temp]):
+        temp2 = [e.span()[0] if e is not None else 65535 for e in temp] #print(e.pos)
+        line = line.replace(NumNames[temp2.index(min(temp2))],str(NumDictAlt[NumNames[temp2.index(min(temp2))]]))
+        temp = [re.search(i,line) for i in NumDict]
+    
+    """temp = [re.search(i,line) for i in NumDictAlt]
     temp2 = [e.span()[0] if e is not None else 65535 for e in temp]
     line = line.replace(NumNames[temp2.index(min(temp2))],str(NumDictAlt[NumNames[temp2.index(min(temp2))]]))
 
     temp = [re.search(i,line) for i in NumDict]
     temp2 = [e.span()[0] if e is not None else 0 for e in temp]
     line = line.replace(NumNames[temp2.index(max(temp2))],str(NumDictAlt[NumNames[temp2.index(max(temp2))]]))
-
+"""
     ret = line
     return ret
 
