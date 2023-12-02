@@ -1,21 +1,19 @@
 from AoC2023 import *
 import re
 
+def GetAlphaNums(line, NumDict,NumNames,NumDictAlt):
+    temp = [re.search(i,line) for i in NumDictAlt]
+    temp2 = [e.span()[0] if e is not None else 65535 for e in temp]
+    line = line.replace(NumNames[temp2.index(min(temp2))],str(NumDictAlt[NumNames[temp2.index(min(temp2))]]))
 
-
-def GetAlphaNums(line, NumDict,NumNames):
     temp = [re.search(i,line) for i in NumDict]
-    while any([e is not None for e in temp]):
-        temp2 = [e.span()[0] if e is not None else 65535 for e in temp] #print(e.pos)
-        line = line.replace(NumNames[temp2.index(min(temp2))],str(NumDict[NumNames[temp2.index(min(temp2))]]))
-        temp = [re.search(i,line) for i in NumDict]
+    temp2 = [e.span()[0] if e is not None else 0 for e in temp]
+    line = line.replace(NumNames[temp2.index(max(temp2))],str(NumDictAlt[NumNames[temp2.index(max(temp2))]]))
+
     ret = line
     return ret
 
-
 def GetValue(line):
-    #numCharArray = [int(char) for char in line.split() if char.isdigit()]
-    #numCharArray = [int(s) for s in re.findall(r'\d+',line)]
     numCharArray = re.findall(r'\d+',line)
     ret = int(numCharArray[0][0] + numCharArray[-1][-1])
     return int(ret)
@@ -34,11 +32,21 @@ def Puzz2(input):
         "seven",
         "eight",
         "nine"]
+    NumConversion = ["on1e",
+        "tw2o",
+        "thre3e",
+        "fou4r",
+        "fiv5e",
+        "si6x",
+        "seve7n",
+        "eigh8t",
+        "nin9e"]
     NumDict = dict(zip(NumNames,range(1,10,1)))
-    temp = [GetValue(GetAlphaNums(line,NumDict,NumNames)) for line in input]
-    ret = sum([GetValue(GetAlphaNums(line,NumDict,NumNames)) for line in input])
+    NumDictAlt = dict(zip(NumNames,NumConversion))
+    temp = [GetValue(GetAlphaNums(line,NumDict,NumNames,NumDictAlt)) for line in input]
+    print(sum(temp))
+    ret = sum([GetValue(GetAlphaNums(line,NumDict,NumNames,NumDictAlt)) for line in input])
     return ret
-
 
 if __name__ == "__main__":
     input = GetInput(1,False)
