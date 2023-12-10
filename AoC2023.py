@@ -26,32 +26,14 @@ if __name__ == "__main__":
 
     DayNum = input("Enter Day Number: ")
     baseName = "Day"+str(DayNum)
-    filenames = [baseName+".py",baseName+"Input.txt",baseName+"InputTest.txt"]
+    fileNames = [baseName+".py",baseName+"Input.txt",baseName+"InputTest.txt"]
+    with open("start.txt") as file: start = file.read()
+    fileContent = [start,"",""]
 
-    for file in filenames:
-        open(file, 'a').close()
+    for i,file in enumerate(fileNames):
+        with open(file, 'a') as file:
+            file.write(fileContent[i])
 
 """
-from AoC2023 import *
 
-def Puzz1(input):
-    output = 0
-    return output
-
-def Puzz2(input):
-    output = 0
-    return output
-
-if __name__ == "__main__":
-    input = GetInput(4,True)
-
-    Execute = 1
-    if (Execute & 0b01):
-        Puzz1Ans = Puzz1(input)
-        print(Puzz1Ans), pyperclip.copy(Puzz1Ans)
-    elif(Execute & 0b10):
-        Puzz2Ans = Puzz2(input)
-        print(Puzz2Ans), pyperclip.copy(Puzz2Ans)
-
-    print("Done")
 """

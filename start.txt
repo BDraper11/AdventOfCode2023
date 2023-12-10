@@ -1,0 +1,22 @@
+from AoC2023 import *
+
+def Puzz1(input):
+    output = 0
+    return output
+
+def Puzz2(input):
+    output = 0
+    return output
+
+if __name__ == "__main__":
+    input = GetInput(4,True)
+
+    Execute = 1
+    if (Execute & 0b01):
+        Puzz1Ans = Puzz1(input)
+        print(Puzz1Ans), pyperclip.copy(Puzz1Ans)
+    if(Execute & 0b10):
+        Puzz2Ans = Puzz2(input)
+        print(Puzz2Ans), pyperclip.copy(Puzz2Ans)
+
+    print("Done")
